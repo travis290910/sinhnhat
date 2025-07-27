@@ -156,6 +156,17 @@
         opacity: 0;
       }
     }
+
+    .countdown {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(255, 105, 180, 0.7);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-weight: bold;
+    }
   </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -166,7 +177,6 @@
     <h1>🎂 Chúc Mừng Sinh Nhật 🎂</h1>
     <div class="date">28/07/2010</div>
     
-    <!-- Đã thay thế bằng hình ảnh mèo dễ thương từ GitHub -->
     <img src="https://raw.githubusercontent.com/yennobita/happy-birthday/main/images/mewmew.gif" alt="Mom Trâm Anh" class="birthday-img">
     
     <h2>Mom Trâm Anh yêu quý!</h2>
@@ -179,6 +189,8 @@
       Chúc Mom một ngày sinh nhật thật ý nghĩa, tràn ngập niềm vui và hạnh phúc!
     </div>
   </div>
+
+  <div class="countdown" id="countdown">Tự động chuyển trang sau: 30 giây</div>
 
   <div class="music-control" id="music-control">
     <i class="fas fa-music"></i>
@@ -271,11 +283,28 @@
       }
     }
 
+    // Countdown and redirect
+    function startCountdown() {
+      let seconds = 30;
+      const countdownElement = document.getElementById("countdown");
+      
+      const countdownInterval = setInterval(() => {
+        seconds--;
+        countdownElement.textContent = `Tự động chuyển trang sau: ${seconds} giây`;
+        
+        if (seconds <= 0) {
+          clearInterval(countdownInterval);
+          window.location.href = "https://tramanh2010.netlify.app/";
+        }
+      }, 1000);
+    }
+
     // Initialize everything when page loads
     window.onload = function() {
       createHearts();
       displayWishes();
       createConfetti();
+      startCountdown();
       
       // Auto-play music (muted by default due to browser policies)
       bgMusic.volume = 0.3;
